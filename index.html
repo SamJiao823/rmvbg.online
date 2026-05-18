@@ -641,7 +641,7 @@
         </div>
     </footer>
 
-    <!-- ===== SCRIPT ===== -->
+    <!-- ===== SCRIPT: UI Handlers (always work, no CDN dependency) ===== -->
     <script>
         // FAQ toggle
         function toggleFaq(el) {
@@ -649,12 +649,8 @@
             const answer = el.nextElementSibling;
             answer.classList.toggle('open');
         }
-    </script>
-    <script type="module">
-        // ----- Imports -----
-        import { removeBackground } from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.1/+esm';
 
-        // ----- DOM refs -----
+        // DOM refs
         const $ = (s) => document.querySelector(s);
         const uploadZone    = $('#uploadZone');
         const fileInput     = $('#fileInput');
@@ -670,8 +666,9 @@
 
         let currentResultBlob = null;
         let currentOriginalUrl = null;
+        let processImageFn = null;
 
-        // ----- Progress helper -----
+        // Progress helpers
         function setProgress(pct, text) {
             progressWrap.classList.add('active');
             progressFill.style.width = Math.min(pct, 100) + '%';
@@ -682,24 +679,58 @@
             progressWrap.classList.remove('active');
         }
 
-        // ----- Process image -----
-        async function processImage(file) {
-            if (!file) return;
+        // Download helpers
+        function downloadBlob(blob, filename) {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
 
-            // Show original preview
+        async function createJpgFromPng(pngBlob) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                    canvas.toBlob((b) => resolve(b), 'image/jpeg', 0.95);
+                };
+                img.src = URL.createObjectURL(pngBlob);
+            });
+        }
+
+        // ----- UI Handlers (always responsive!) -----
+        uploadZone.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', async (e) => {
+            if (!e.target.files.length) return;
+            const file = e.target.files[0];
+
+            // Show original preview immediately
             currentOriginalUrl = URL.createObjectURL(file);
             originalWrap.innerHTML = `<img src="${currentOriginalUrl}" alt="Original" />`;
-
             uploadZone.classList.add('has-image');
             uploadZone.querySelector('.main-text').textContent = 'Processing...';
             resultWrap.classList.remove('active');
             hideProgress();
 
             try {
-                setProgress(10, '🔒 Loading AI model to your browser (your images stay 100% private)...');
-                setProgress(30, '🤖 AI is analyzing your image...');
+                // Dynamically import AI model only when needed
+                if (!processImageFn) {
+                    setProgress(10, '🔒 Loading AI model to your browser (one-time download ~40MB)...');
+                    const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.1/+esm');
+                    processImageFn = mod.removeBackground;
+                }
 
-                const blob = await removeBackground(file, { model: 'isnet' });
+                setProgress(40, '🤖 AI is analyzing your image...');
+                const blob = await processImageFn(file, { model: 'isnet' });
                 currentResultBlob = blob;
 
                 const resultUrl = URL.createObjectURL(blob);
@@ -716,39 +747,53 @@
                 progressText.textContent = 'Error: ' + (err.message || 'Unknown error');
                 progressWrap.classList.add('active');
             }
-        }
+        });
 
-        // ----- Download helpers -----
-        function downloadBlob(blob, filename) {
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+        uploadZone.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (!files.length) return;
+            const file = files[0];
 
-        // Create a JPG with white background from the transparent PNG blob
-        function createJpgFromPng(pngBlob) {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    const ctx = canvas.getContext('2d');
-                    // Fill white background
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    // Draw image on top
-                    ctx.drawImage(img, 0, 0);
-                    canvas.toBlob((b) => resolve(b), 'image/jpeg', 0.95);
-                };
-                img.src = URL.createObjectURL(pngBlob);
-            });
-        }
+            // Same processing as fileInput change
+            currentOriginalUrl = URL.createObjectURL(file);
+            originalWrap.innerHTML = `<img src="${currentOriginalUrl}" alt="Original" />`;
+            uploadZone.classList.add('has-image');
+            uploadZone.querySelector('.main-text').textContent = 'Processing...';
+            resultWrap.classList.remove('active');
+            hideProgress();
 
-        // ----- Download buttons -----
+            try {
+                if (!processImageFn) {
+                    setProgress(10, '🔒 Loading AI model to your browser (one-time download ~40MB)...');
+                    const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.1/+esm');
+                    processImageFn = mod.removeBackground;
+                }
+                setProgress(40, '🤖 AI is analyzing your image...');
+                const blob = await processImageFn(file, { model: 'isnet' });
+                currentResultBlob = blob;
+                const resultUrl = URL.createObjectURL(blob);
+                resultWrapImg.innerHTML = `<img src="${resultUrl}" alt="Background removed" />`;
+                resultWrap.classList.add('active');
+                uploadZone.querySelector('.main-text').textContent = '✅ Background removed!';
+                hideProgress();
+            } catch (err) {
+                console.error('RemoveBG error:', err);
+                hideProgress();
+                uploadZone.querySelector('.main-text').textContent = '⚠️ Something went wrong. Try another image.';
+                progressText.textContent = 'Error: ' + (err.message || 'Unknown error');
+                progressWrap.classList.add('active');
+            }
+        });
+
         downloadPng.addEventListener('click', () => {
             if (!currentResultBlob) return;
             downloadBlob(currentResultBlob, 'rmvbg-transparent.png');
@@ -760,7 +805,6 @@
             downloadBlob(jpgBlob, 'rmvbg-white-bg.jpg');
         });
 
-        // ----- Reset -----
         resetBtn.addEventListener('click', () => {
             currentResultBlob = null;
             if (currentOriginalUrl) {
@@ -776,31 +820,10 @@
             fileInput.value = '';
         });
 
-        // ----- Upload handlers -----
-        uploadZone.addEventListener('click', () => fileInput.click());
-
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length) processImage(e.target.files[0]);
-        });
-
-        uploadZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadZone.classList.add('dragover');
-        });
-        uploadZone.addEventListener('dragleave', () => {
-            uploadZone.classList.remove('dragover');
-        });
-        uploadZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadZone.classList.remove('dragover');
-            const files = e.dataTransfer.files;
-            if (files.length) processImage(files[0]);
-        });
-
         document.addEventListener('dragover', (e) => e.preventDefault());
         document.addEventListener('drop', (e) => e.preventDefault());
 
-        console.log('RMVBG: Tool ready. Model will load on first image upload.');
+        console.log('RMVBG: UI ready. AI model loads on first image.');
     </script>
 </body>
 </html>
