@@ -4,16 +4,50 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Free Background Remover Online - Remove Image Background Instantly | RMVBG</title>
-    <meta name="description" content="Remove background from images for free. No signup, no limits. Upload any image and download transparent PNG in seconds. AI-powered background removal, 100% private." />
+    <meta name="description" content="Remove background from images for free. No signup, no limits. Upload any image and download transparent PNG or JPG in seconds. AI-powered, 100% private, free for commercial use." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://rmvbg.online" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="Free AI Background Remover Online - RMVBG" />
-    <meta property="og:description" content="Remove background from images instantly. Free, no signup, unlimited downloads. 100% private — processed in your browser." />
+    <meta property="og:description" content="Remove background from images instantly. Free, no signup, unlimited downloads. 100% private — processed in your browser. Free for commercial use." />
     <meta property="og:type" content="website" />
 
-    <!-- AdSense (replace PUBLISHER_ID with your actual ID when approved) -->
+    <!-- Schema.org structured data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "RMVBG - Free Background Remover",
+      "url": "https://rmvbg.online",
+      "description": "Free online AI background remover. No signup, unlimited downloads, 100% private browser-based processing.",
+      "applicationCategory": "Multimedia",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"Is this background remover really free?","acceptedAnswer":{"@type":"Answer","text":"Yes, completely free! No hidden fees, no credit card needed, unlimited image removals."}},
+        {"@type":"Question","name":"Can I use the downloaded images for commercial purposes?","acceptedAnswer":{"@type":"Answer","text":"Yes, all downloaded images are free for commercial use. No attribution required."}},
+        {"@type":"Question","name":"Are my images private?","acceptedAnswer":{"@type":"Answer","text":"100% private. All processing happens locally in your browser. Your images never leave your device."}},
+        {"@type":"Question","name":"What formats can I download?","acceptedAnswer":{"@type":"Answer","text":"You can download as transparent PNG or white background JPG, both in high quality."}},
+        {"@type":"Question","name":"Is there a file size limit?","acceptedAnswer":{"@type":"Answer","text":"Maximum file size is 10MB. Works with JPEG, PNG, WebP formats."}},
+        {"@type":"Question","name":"Do you store my images?","acceptedAnswer":{"@type":"Answer","text":"No. Images are processed entirely in your browser and never uploaded to any server. They are automatically deleted when you close the page."}}
+      ]
+    }
+    </script>
+
+    <!-- AdSense (replace PUBLISHER_ID when approved) -->
     <!--
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-PUBLISHER_ID" crossorigin="anonymous"></script>
     -->
@@ -38,6 +72,28 @@
         .container { max-width: 880px; margin: 0 auto; padding: 0 20px; width: 100%; }
 
         /* ===== Header ===== */
+        header {
+            text-align: center;
+            padding: 32px 0 8px;
+        }
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header p {
+            font-size: 1.05rem;
+            color: #4b5563;
+            margin-top: 8px;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        header .highlight { color: #059669; font-weight: 600; }
+
         /* ===== Privacy Badge ===== */
         .privacy-badge {
             background: linear-gradient(135deg, #065f46, #059669);
@@ -56,7 +112,7 @@
         }
         .privacy-badge .badge-icon { font-size: 1.3rem; }
 
-        /* ===== Trust Strip (below upload) ===== */
+        /* ===== Trust Strip ===== */
         .trust-strip {
             display: flex;
             justify-content: center;
@@ -73,32 +129,25 @@
         }
         .trust-strip .check { color: #22c55e; font-weight: bold; }
 
-        header {
+        /* ===== Commercial Badge ===== */
+        .commercial-badge {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 10px 16px;
             text-align: center;
-            padding: 32px 0 8px;
+            font-size: 0.9rem;
+            color: #92400e;
+            margin: 4px 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
-        header h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #4361ee, #7209b7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        header p {
-            font-size: 1.05rem;
-            color: #4b5563;
-            margin-top: 8px;
-            max-width: 620px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        header .highlight {
-            color: #059669;
-            font-weight: 600;
-        }
+        .commercial-badge .cb-icon { font-size: 1.1rem; }
 
-        /* ===== Ad Slot (placeholder) ===== */
+        /* ===== Ad Slot ===== */
         .ad-slot {
             background: #e9ecef;
             border-radius: 8px;
@@ -128,7 +177,7 @@
         }
         .upload-zone:hover { border-color: #4361ee; background: #f0f4ff; }
         .upload-zone.dragover { border-color: #4361ee; background: #eef2ff; }
-        .upload-zone.has-image { border-style: solid; border-color: #22c55e; background: #f0fdf4; padding: 24px 20px; }
+        .upload-zone.has-image { border-style: solid; border-color: #22c55e; background: #22c55e #22c55e #22c55e; background: #f0fdf4; padding: 24px 20px; }
         .upload-zone .icon { font-size: 3rem; margin-bottom: 12px; display: block; }
         .upload-zone .main-text { font-size: 1.15rem; font-weight: 600; }
         .upload-zone .sub-text { font-size: 0.9rem; color: #6c757d; margin-top: 4px; }
@@ -205,47 +254,45 @@
             display: block;
         }
 
-        /* Download button */
-        .btn-download {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #22c55e;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            padding: 14px 32px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
+        /* Download buttons */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
             margin-top: 16px;
         }
-        .btn-download:hover { background: #16a34a; }
-
-        .btn-reset {
+        .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, opacity 0.2s;
+        }
+        .btn-png {
+            background: #22c55e;
+            color: #fff;
+        }
+        .btn-png:hover { background: #16a34a; }
+        .btn-jpg {
+            background: #4361ee;
+            color: #fff;
+        }
+        .btn-jpg:hover { background: #3b51d4; }
+        .btn-reset {
             background: transparent;
             color: #6c757d;
             border: 1px solid #d4d4d8;
-            border-radius: 10px;
-            padding: 14px 24px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: border-color 0.2s;
-            margin-top: 16px;
-            margin-left: 8px;
         }
         .btn-reset:hover { border-color: #4361ee; color: #4361ee; }
 
-        .result-actions {
-            text-align: center;
-            margin-top: 8px;
-        }
-
-        /* ===== Features Section ===== */
+        /* ===== Features ===== */
         .features {
             margin: 48px 0;
         }
@@ -307,6 +354,51 @@
         .step .s-title { font-weight: 600; }
         .step .s-desc { font-size: 0.85rem; color: #6c757d; margin-top: 4px; }
 
+        /* ===== FAQ ===== */
+        .faq {
+            margin: 48px 0;
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .faq h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .faq-list { max-width: 700px; margin: 0 auto; }
+        .faq-item {
+            border-bottom: 1px solid #e9ecef;
+            padding: 16px 0;
+        }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-q {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1a1a2e;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        .faq-q .arrow {
+            transition: transform 0.2s;
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        .faq-q.open .arrow { transform: rotate(180deg); }
+        .faq-a {
+            display: none;
+            font-size: 0.9rem;
+            color: #4b5563;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        .faq-a.open { display: block; }
+
         /* ===== Footer ===== */
         footer {
             margin-top: auto;
@@ -329,7 +421,7 @@
     <header>
         <div class="container">
             <h1>✨ Background Remover</h1>
-            <p>Remove background from any image. <span class="highlight">100% free</span>, <span class="highlight">no signup</span>, <span class="highlight">unlimited downloads</span>. Your images <span class="highlight">never leave your device</span>.</p>
+            <p>Remove background from any image. <span class="highlight">100% free</span>, <span class="highlight">no signup</span>, <span class="highlight">unlimited downloads</span>. Your images <span class="highlight">never leave your device</span>. <span class="highlight">Free for commercial use</span>.</p>
         </div>
     </header>
 
@@ -357,7 +449,7 @@
             <span class="icon">📸</span>
             <div class="main-text">Drop an image here or click to browse</div>
             <div class="sub-text">Works with JPEG, PNG, WebP &mdash; any image</div>
-            <div class="formats">Max 10 MB &bull; Transparent PNG output &bull; 🔒 100% private — processed in your browser</div>
+            <div class="formats">Max 10 MB &bull; PNG Transparent / JPG White Background &bull; 🔒 100% private</div>
             <input type="file" id="fileInput" accept="image/*" />
         </div>
 
@@ -367,6 +459,12 @@
             <span><span class="check">✓</span> Unlimited free</span>
             <span><span class="check">✓</span> No upload to server</span>
             <span><span class="check">✓</span> Auto-deleted on close</span>
+        </div>
+
+        <!-- Free for Commercial Use Badge -->
+        <div class="commercial-badge">
+            <span class="cb-icon">✅</span>
+            <span><strong>Free for commercial use</strong> — no attribution required. Use for your business, products, social media, and more.</span>
         </div>
 
         <!-- Loading / Progress -->
@@ -389,9 +487,10 @@
                     <div class="img-wrap" id="resultWrapImage"></div>
                 </div>
             </div>
-            <div class="result-actions">
-                <button class="btn-download" id="downloadBtn">⬇ Download Transparent PNG</button>
-                <button class="btn-reset" id="resetBtn">✕ Remove another</button>
+            <div class="btn-group">
+                <button class="btn btn-png" id="downloadPngBtn">⬇ Download PNG (Transparent)</button>
+                <button class="btn btn-jpg" id="downloadJpgBtn">⬇ Download JPG (White BG)</button>
+                <button class="btn btn-reset" id="resetBtn">✕ Remove another</button>
             </div>
         </div>
 
@@ -406,27 +505,37 @@
     <!-- ===== FEATURES ===== -->
     <section class="features">
         <div class="container">
-            <h2>Why Use Our Background Remover?</h2>
+            <h2>Why Use RMVBG?</h2>
             <div class="features-grid">
                 <div class="feature-item">
                     <span class="fi-icon">⚡</span>
                     <div class="fi-title">100% Free</div>
-                    <div class="fi-desc">No hidden fees, no credit card. Unlimited image removals.</div>
+                    <div class="fi-desc">No hidden fees, no credit card. Unlimited image removals, always free.</div>
                 </div>
                 <div class="feature-item">
                     <span class="fi-icon">🔒</span>
                     <div class="fi-title">100% Private</div>
-                    <div class="fi-desc">Images processed in your browser. Nothing is uploaded to any server.</div>
+                    <div class="fi-desc">Images processed in your browser. Nothing uploaded to any server. Ever.</div>
                 </div>
                 <div class="feature-item">
-                    <span class="fi-icon">🎯</span>
-                    <div class="fi-title">AI-Powered</div>
-                    <div class="fi-desc">Smart subject detection works on people, products, pets &amp; more. No quality loss.</div>
+                    <span class="fi-icon">🛒</span>
+                    <div class="fi-title">E-commerce Ready</div>
+                    <div class="fi-desc">Remove product backgrounds for Amazon, eBay, Shopify listings. Clean product photos instantly.</div>
                 </div>
                 <div class="feature-item">
-                    <span class="fi-icon">🌍</span>
-                    <div class="fi-title">No Signup</div>
-                    <div class="fi-desc">Open, upload, download. That's it. No account needed.</div>
+                    <span class="fi-icon">📱</span>
+                    <div class="fi-title">Social Media</div>
+                    <div class="fi-desc">Create clean profile pictures, Instagram posts, and YouTube thumbnails with transparent backgrounds.</div>
+                </div>
+                <div class="feature-item">
+                    <span class="fi-icon">🪪</span>
+                    <div class="fi-title">ID Photos</div>
+                    <div class="fi-desc">Remove background from ID photos, passport photos, and证件照. Replace with any color.</div>
+                </div>
+                <div class="feature-item">
+                    <span class="fi-icon">🎨</span>
+                    <div class="fi-title">Design &amp; Creative</div>
+                    <div class="fi-desc">Perfect for graphic designers, content creators, and marketers. Ready-to-use PNGs for any project.</div>
                 </div>
             </div>
         </div>
@@ -440,17 +549,75 @@
                 <div class="step">
                     <div class="num">1</div>
                     <div class="s-title">Upload Image</div>
-                    <div class="s-desc">Drag &amp; drop or click to select any photo.</div>
+                    <div class="s-desc">Drag &amp; drop or click to select any photo from your device.</div>
                 </div>
                 <div class="step">
                     <div class="num">2</div>
                     <div class="s-title">AI Removes Background</div>
-                    <div class="s-desc">Our AI detects the subject and removes the background instantly.</div>
+                    <div class="s-desc">Our AI detects the subject and removes the background automatically in seconds.</div>
                 </div>
                 <div class="step">
                     <div class="num">3</div>
-                    <div class="s-title">Download PNG</div>
-                    <div class="s-desc">Save your transparent image in high quality. Ready to use.</div>
+                    <div class="s-title">Download Your Image</div>
+                    <div class="s-desc">Choose PNG (transparent) or JPG (white background). High quality, ready to use.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">
+                        Is this background remover really free?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-a">Yes, completely free! No hidden fees, no credit card required. You can remove backgrounds from unlimited images without paying a cent. We make money from optional ads.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">
+                        Can I use the downloaded images for commercial purposes?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-a">Yes! All images you download are <strong>free for commercial use</strong>. No attribution required. Use them for your business, products, marketing materials, social media, or any other purpose.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">
+                        Are my images private and secure?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-a">100% private. Your images are processed <strong>entirely in your browser</strong> using AI. They never get uploaded to any server, never get stored, and never leave your device. This is a key advantage over other background removers that require server uploads.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">
+                        What image formats can I download?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-a">You can download your image in two formats: <strong>PNG (transparent background)</strong> — perfect for overlaying on other images or designs, and <strong>JPG (white background)</strong> — ideal for product photos and documents.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">
+                        Is there a file size or resolution limit?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-a">The maximum file size is <strong>10 MB</strong>. We support JPEG, PNG, and WebP formats. For best results, use images with clear subject-background contrast.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">
+                        Why is it slow the first time?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-a">The first time you use the tool, it needs to download the AI model to your browser (about 40MB). This is a one-time download — subsequent uses will be much faster since the model is cached in your browser.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">
+                        Do you store my images on your server?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-a">No, never. We don't have any server storage for user images. Everything happens in your browser. Once you close the page, all data is gone. Your privacy is our top priority.</div>
                 </div>
             </div>
         </div>
@@ -475,9 +642,17 @@
     </footer>
 
     <!-- ===== SCRIPT ===== -->
+    <script>
+        // FAQ toggle
+        function toggleFaq(el) {
+            el.classList.toggle('open');
+            const answer = el.nextElementSibling;
+            answer.classList.toggle('open');
+        }
+    </script>
     <script type="module">
         // ----- Imports -----
-        import { removeBackground, Config } from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.1/+esm';
+        import { removeBackground } from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.1/+esm';
 
         // ----- DOM refs -----
         const $ = (s) => document.querySelector(s);
@@ -489,10 +664,12 @@
         const resultWrap    = $('#resultWrap');
         const originalWrap  = $('#originalWrap');
         const resultWrapImg = $('#resultWrapImage');
-        const downloadBtn   = $('#downloadBtn');
+        const downloadPng   = $('#downloadPngBtn');
+        const downloadJpg   = $('#downloadJpgBtn');
         const resetBtn      = $('#resetBtn');
 
-        let currentResultBlob = null;  // latest output blob
+        let currentResultBlob = null;
+        let currentOriginalUrl = null;
 
         // ----- Progress helper -----
         function setProgress(pct, text) {
@@ -510,69 +687,86 @@
             if (!file) return;
 
             // Show original preview
-            const originalUrl = URL.createObjectURL(file);
-            originalWrap.innerHTML = `<img src="${originalUrl}" alt="Original" />`;
+            currentOriginalUrl = URL.createObjectURL(file);
+            originalWrap.innerHTML = `<img src="${currentOriginalUrl}" alt="Original" />`;
 
-            // Show upload zone as "has image"
-            uploadZone.classList.add('has-image');
+            // Show uploadZone.classList.add('has-image');
             uploadZone.querySelector('.main-text').textContent = 'Processing...';
-
             resultWrap.classList.remove('active');
             hideProgress();
 
             try {
-                // Configure model path (use jsdelivr CDN for model files)
-                const config = {
-                    model: 'isnet',  // faster model
-                    // use default CDN for model download
-                };
-
-                // Show progress
                 setProgress(10, '🔒 Loading AI model to your browser (your images stay 100% private)...');
+                setProgress(30, '🤖 AI is analyzing your image...');
 
-                // Run background removal
-                const blob = await removeBackground(file, config);
-
-                // Store result
+                const blob = await removeBackground(file, { model: 'isnet' });
                 currentResultBlob = blob;
 
-                // Show result preview
                 const resultUrl = URL.createObjectURL(blob);
                 resultWrapImg.innerHTML = `<img src="${resultUrl}" alt="Background removed" />`;
 
-                // Show result section
                 resultWrap.classList.add('active');
-
-                // Update upload zone
                 uploadZone.querySelector('.main-text').textContent = '✅ Background removed!';
-                uploadZone.classList.add('has-image');
-
                 hideProgress();
 
             } catch (err) {
                 console.error('RemoveBG error:', err);
                 hideProgress();
-                uploadZone.querySelector('.main-text').textContent = '⚠️ Something went wrong. Try another image.';
-                uploadZone.classList.add('has-image');
+                uploadZone.querySelector('.main-text').tent = '⚠️ Something went wrong. Try another image.';
                 progressText.textContent = 'Error: ' + (err.message || 'Unknown error');
                 progressWrap.classList.add('active');
             }
         }
 
-        // ----- Download -----
-        downloadBtn.addEventListener('click', () => {
-            if (!currentResultBlob) return;
+        // ----- Download helpers -----
+        function downloadBlob(blob, filename) {
             const a = document.createElement('a');
-            a.href = URL.createObjectURL(currentResultBlob);
-            a.download = 'removed-background.png';
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+        }
+
+        // Create a JPG with white background from the transparent PNG blob
+        function createJpgFromPng(pngBlob) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    // Fill white background
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    // Draw image on top
+                    ctx.drawImage(img, 0, 0);
+                    canvas.toBlob((b) => resolve(b), 'image/jpeg', 0.95);
+                };
+                img.src = URL.createObjectURL(pngBlob);
+            });
+        }
+
+        // ----- Download buttons -----
+        downloadPng.addEventListener('click', () => {
+            if (!currentResultBlob) return;
+            downloadBlob(currentResultBlob, 'rmvbg-transparent.png');
+        });
+
+        downloadJpg.addEventListener('click', async () => {
+            if (!currentResultBlob) return;
+            const jpgBlob = await createJpgFrom(currentResultBlob);
+            downloadBlob(jpgBlob, 'rmvbg-white-bg.jpg');
         });
 
         // ----- Reset -----
         resetBtn.addEventListener('click', () => {
             currentResultBlob = null;
+            if (currentOriginalUrl) {
+                URL.revokeObjectURL(currentOriginalUrl);
+                currentOriginalUrl = null;
+            }
             resultWrap.classList.remove('active');
             originalWrap.innerHTML = '';
             resultWrapImg.innerHTML = '';
@@ -583,14 +777,12 @@
         });
 
         // ----- Upload handlers -----
-        // Click to upload
         uploadZone.addEventListener('click', () => fileInput.click());
 
         fileInput.addEventListener('change', (e) => {
             if (e.target.files.length) processImage(e.target.files[0]);
         });
 
-        // Drag & drop
         uploadZone.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadZone.classList.add('dragover');
@@ -605,13 +797,10 @@
             if (files.length) processImage(files[0]);
         });
 
-        // Prevent page from opening dropped files
         document.addEventListener('dragover', (e) => e.preventDefault());
         document.addEventListener('drop', (e) => e.preventDefault());
 
-        // Report model loading progress
-        // (removeBackground already has built-in progress logging to console)
-        console.log('RemoveBG: Tool ready. Model will load on first image upload.');
+        console.log('RMVBG: Tool ready. Model will load on first image upload.');
     </script>
 </body>
 </html>
