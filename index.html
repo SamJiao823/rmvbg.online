@@ -47,7 +47,7 @@
     }
     </script>
 
-    <!-- AdSense (replace PUBLISHER_ID when approved) -->
+    <!-- AdSense (replace PUBLISHER_ID with your actual ID when approved) -->
     <!--
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-PUBLISHER_ID" crossorigin="anonymous"></script>
     -->
@@ -690,7 +690,7 @@
             currentOriginalUrl = URL.createObjectURL(file);
             originalWrap.innerHTML = `<img src="${currentOriginalUrl}" alt="Original" />`;
 
-            // Show uploadZone.classList.add('has-image');
+            uploadZone.classList.add('has-image');
             uploadZone.querySelector('.main-text').textContent = 'Processing...';
             resultWrap.classList.remove('active');
             hideProgress();
@@ -712,7 +712,7 @@
             } catch (err) {
                 console.error('RemoveBG error:', err);
                 hideProgress();
-                uploadZone.querySelector('.main-text').tent = '⚠️ Something went wrong. Try another image.';
+                uploadZone.querySelector('.main-text').textContent = '⚠️ Something went wrong. Try another image.';
                 progressText.textContent = 'Error: ' + (err.message || 'Unknown error');
                 progressWrap.classList.add('active');
             }
@@ -756,7 +756,7 @@
 
         downloadJpg.addEventListener('click', async () => {
             if (!currentResultBlob) return;
-            const jpgBlob = await createJpgFrom(currentResultBlob);
+            const jpgBlob = await createJpgFromPng(currentResultBlob);
             downloadBlob(jpgBlob, 'rmvbg-white-bg.jpg');
         });
 
