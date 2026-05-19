@@ -47,10 +47,8 @@
     }
     </script>
 
-    <!-- AdSense (replace PUBLISHER_ID with your actual ID when approved) -->
-    <!--
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-PUBLISHER_ID" crossorigin="anonymous"></script>
-    -->
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4255417677278196" crossorigin="anonymous"></script>
 
     <style>
         /* ===== Reset & Base ===== */
@@ -709,11 +707,20 @@
         // ----- UI Handlers (always responsive!) -----
         uploadZone.addEventListener('click', () => fileInput.click());
 
-        fileInput.addEventListener('change', async (e) => {
-            if (!e.target.files.length) return;
-            const file = e.target.files[0];
+        // ----- Shared image processing logic (extracted to avoid duplication) -----
+        function modelProgress(key, current, total) {
+            // key: model name, current: bytes downloaded, total: total bytes
+            if (total > 0) {
+                const pct = Math.round((current / total) * 100);
+                const mb = (current / 1024 / 1024).toFixed(1);
+                const totalMb = (total / 1024 / 1024).toFixed(1);
+                setProgress(pct, `🔒 Downloading ${key}... ${pct}% (${mb}MB / ${totalMb}MB)`);
+            } else {
+                setProgress(50, `🔒 Downloading ${key}... ${(current/1024/1024).toFixed(1)}MB`);
+            }
+        }
 
-            // Show original preview immediately
+        async function processFile(file) {
             currentOriginalUrl = URL.createObjectURL(file);
             originalWrap.innerHTML = `<img src="${currentOriginalUrl}" alt="Original" />`;
             uploadZone.classList.add('has-image');
@@ -722,15 +729,23 @@
             hideProgress();
 
             try {
-                // Dynamically import AI model only when needed
                 if (!processImageFn) {
-                    setProgress(10, '🔒 Loading AI model to your browser (one-time download ~40MB)...');
-                    const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.1/+esm');
+                    setProgress(5, '🔒 Loading AI engine...');
+                    console.log('[RMVBG] Loading @imgly/background-removal from CDN...');
+                    const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm');
                     processImageFn = mod.removeBackground;
+                    console.log('[RMVBG] AI engine loaded successfully');
                 }
 
-                setProgress(40, '🤖 AI is analyzing your image...');
-                const blob = await processImageFn(file, { model: 'isnet' });
+                setProgress(15, '🤖 AI is analyzing your image...');
+                // Use quantized model (isnet_quint8) ~15MB vs ~40MB — faster to download
+                // Add progress callback to show real-time download status
+                const blob = await processImageFn(file, {
+                    model: 'isnet_quint8',
+                    debug: true,
+                    progress: modelProgress
+                });
+                console.log('[RMVBG] Background removal complete');
                 currentResultBlob = blob;
 
                 const resultUrl = URL.createObjectURL(blob);
@@ -739,14 +754,20 @@
                 resultWrap.classList.add('active');
                 uploadZone.querySelector('.main-text').textContent = '✅ Background removed!';
                 hideProgress();
-
             } catch (err) {
-                console.error('RemoveBG error:', err);
+                console.error('[RMVBG] ERROR:', err);
+                console.error('[RMVBG] Error name:', err.name);
+                console.error('[RMVBG] Error stack:', err.stack);
                 hideProgress();
                 uploadZone.querySelector('.main-text').textContent = '⚠️ Something went wrong. Try another image.';
-                progressText.textContent = 'Error: ' + (err.message || 'Unknown error');
+                progressText.textContent = 'Error: ' + (err.message || err.name || 'Unknown error');
                 progressWrap.classList.add('active');
             }
+        }
+
+        fileInput.addEventListener('change', async (e) => {
+            if (!e.target.files.length) return;
+            await processFile(e.target.files[0]);
         });
 
         uploadZone.addEventListener('dragover', (e) => {
@@ -761,37 +782,7 @@
             uploadZone.classList.remove('dragover');
             const files = e.dataTransfer.files;
             if (!files.length) return;
-            const file = files[0];
-
-            // Same processing as fileInput change
-            currentOriginalUrl = URL.createObjectURL(file);
-            originalWrap.innerHTML = `<img src="${currentOriginalUrl}" alt="Original" />`;
-            uploadZone.classList.add('has-image');
-            uploadZone.querySelector('.main-text').textContent = 'Processing...';
-            resultWrap.classList.remove('active');
-            hideProgress();
-
-            try {
-                if (!processImageFn) {
-                    setProgress(10, '🔒 Loading AI model to your browser (one-time download ~40MB)...');
-                    const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.1/+esm');
-                    processImageFn = mod.removeBackground;
-                }
-                setProgress(40, '🤖 AI is analyzing your image...');
-                const blob = await processImageFn(file, { model: 'isnet' });
-                currentResultBlob = blob;
-                const resultUrl = URL.createObjectURL(blob);
-                resultWrapImg.innerHTML = `<img src="${resultUrl}" alt="Background removed" />`;
-                resultWrap.classList.add('active');
-                uploadZone.querySelector('.main-text').textContent = '✅ Background removed!';
-                hideProgress();
-            } catch (err) {
-                console.error('RemoveBG error:', err);
-                hideProgress();
-                uploadZone.querySelector('.main-text').textContent = '⚠️ Something went wrong. Try another image.';
-                progressText.textContent = 'Error: ' + (err.message || 'Unknown error');
-                progressWrap.classList.add('active');
-            }
+            await processFile(files[0]);
         });
 
         downloadPng.addEventListener('click', () => {
