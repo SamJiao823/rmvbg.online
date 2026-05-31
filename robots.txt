@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rmvbg.online/sitemap.xml
