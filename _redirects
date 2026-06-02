@@ -1,8 +1,15 @@
-# Cloudflare Pages routing
-# /privacy-policy -> /privacy-policy.html
-# /contact -> /contact.html
-# All HTML files served without .html extension by default
-# sitemap and other static files served directly
-/sitemap.xml   /sitemap.xml   200
-/ads.txt       /ads.txt       200
-/robots.txt    /robots.txt    200
+# Explicit file routes to bypass SPA catch-all
+/privacy-policy /privacy-policy.html 200
+/contact /contact.html 200
+/privacy-policy.html /privacy-policy.html 200
+/contact.html /contact.html 200
+/manifest.json /manifest.json 200
+/sw.js /sw.js 200
+
+# Static files served directly
+/sitemap.xml /sitemap.xml 200
+/ads.txt /ads.txt 200
+/robots.txt /robots.txt 200
+
+# Fallback: everything else -> index.html (SPA)
+/* /index.html 200
