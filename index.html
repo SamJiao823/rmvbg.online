@@ -21,6 +21,15 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#4361ee" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="RMVBG" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%234361ee'/%3E%3Cstop offset='100%25' style='stop-color:%237209b7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-size='52' fill='white' font-family='sans-serif'%3E✨%3C/text%3E%3C/svg%3E" />
+
     <title>Free Background Remover Online - Remove Image Background Instantly | RMVBG</title>
     <meta name="description" content="Remove background from images for free. No signup, no limits. Upload any image and download transparent PNG or JPG in seconds. AI-powered, 100% private, free for commercial use." />
     <meta name="robots" content="index, follow" />
@@ -176,20 +185,18 @@
 
         /* ===== Ad Slot ===== */
         .ad-slot {
-            background: #e9ecef;
             border-radius: 8px;
             min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #adb5bd;
-            font-size: 0.85rem;
             margin: 16px 0;
             text-align: center;
             overflow: hidden;
         }
         .ad-slot--leaderboard { min-height: 90px; }
         .ad-slot--rectangle { min-height: 250px; }
+        .ad-slot ins {
+            display: block;
+            margin: 0 auto;
+        }
 
         /* ===== Upload Area ===== */
         .upload-zone {
@@ -436,6 +443,149 @@
         }
         footer a { color: #6c757d; }
 
+        /* ===== Post-Result: What's Next ===== */
+        .next-steps {
+            margin-top: 32px;
+            border-top: 2px solid #e9ecef;
+            padding-top: 24px;
+        }
+        .next-steps h3 {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1a1a2e;
+        }
+        .next-steps h3 .emoji { font-size: 1.4rem; }
+
+        .tool-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .tool-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            transition: box-shadow 0.2s, border-color 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .tool-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-color: #4361ee;
+            text-decoration: none;
+        }
+        .tool-card .tc-icon { font-size: 2rem; display: block; margin-bottom: 8px; }
+        .tool-card .tc-name { font-weight: 700; font-size: 0.95rem; }
+        .tool-card .tc-desc { font-size: 0.8rem; color: #6c757d; margin: 4px 0 10px; }
+        .tool-card .tc-cta {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .tc-cta--canva  { background: linear-gradient(135deg, #00c4cc, #0066cc); }
+        .tc-cta--shopify{ background: linear-gradient(135deg, #96bf48, #5e8e3e); }
+        .tc-cta--figma  { background: linear-gradient(135deg, #a259ff, #6b31c9); }
+        .tc-cta--adobe  { background: linear-gradient(135deg, #ff0000, #cc0000); }
+
+        .fiverr-cta {
+            background: linear-gradient(135deg, #1dbf73, #0e9d5a);
+            color: #fff;
+            border-radius: 12px;
+            padding: 16px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .fiverr-cta p { margin: 0 0 10px; font-size: 0.9rem; opacity: 0.95; }
+        .fiverr-cta a {
+            display: inline-block;
+            background: #fff;
+            color: #1dbf73;
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .fiverr-cta a:hover { transform: scale(1.05); text-decoration: none; }
+
+        .share-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #d4d4d8;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #1a1a2e;
+        }
+        .share-btn:hover { border-color: #4361ee; color: #4361ee; }
+        .share-btn--x:hover { border-color: #000; color: #000; }
+        .share-btn--reddit:hover { border-color: #ff4500; color: #ff4500; }
+
+        .email-capture {
+            background: #f8f4ff;
+            border: 1px solid #e0d5f5;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .email-capture p { font-size: 0.9rem; color: #4b5563; margin: 0 0 12px; }
+        .email-capture .email-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .email-capture input[type="email"] {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid #d4d4d8;
+            font-size: 0.9rem;
+            min-width: 220px;
+            outline: none;
+        }
+        .email-capture input[type="email"]:focus { border-color: #7c3aed; }
+        .email-capture button {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .email-capture .sub-msg {
+            display: none;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
         /* ===== Utility ===== */
         .mt-16 { margin-top: 16px; }
         .mb-16 { margin-bottom: 16px; }
@@ -463,8 +613,13 @@
     <!-- ===== TOP AD ===== -->
     <div class="container">
         <div class="ad-slot ad-slot--leaderboard" id="ad-top">
-            <!-- AdSense: Leaderboard 728x90 -->
-            <span>Sponsor</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4255417677278196"
+                 data-ad-slot="AD_UNIT_ID_TOP"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
     </div>
 
@@ -519,12 +674,69 @@
                 <button class="btn btn-jpg" id="downloadJpgBtn">⬇ Download JPG (White BG)</button>
                 <button class="btn btn-reset" id="resetBtn">✕ Remove another</button>
             </div>
+
+            <!-- ===== WHAT'S NEXT: Post-Result Monetization ===== -->
+            <div class="next-steps">
+                <h3><span class="emoji">🎯</span> What's Next? Make Your Image Even Better</h3>
+
+                <!-- Affiliate Tool Cards -->
+                <div class="tool-cards">
+                    <a href="https://www.canva.com/pro/?utm_source=rmvbg&utm_medium=affiliate&utm_campaign=post-result" target="_blank" class="tool-card" id="aff-canva">
+                        <span class="tc-icon">🎨</span>
+                        <div class="tc-name">Canva Pro</div>
+                        <div class="tc-desc">Add text, effects, templates — easy drag & drop design</div>
+                        <span class="tc-cta tc-cta--canva">Try Free →</span>
+                    </a>
+                    <a href="https://www.shopify.com/free-trial?utm_source=rmvbg&utm_medium=affiliate&utm_campaign=post-result" target="_blank" class="tool-card" id="aff-shopify">
+                        <span class="tc-icon">🛒</span>
+                        <div class="tc-name">Shopify</div>
+                        <div class="tc-desc">Put your product photos in a real online store</div>
+                        <span class="tc-cta tc-cta--shopify">Start Free →</span>
+                    </a>
+                    <a href="https://www.figma.com/?utm_source=rmvbg&utm_medium=affiliate&utm_campaign=post-result" target="_blank" class="tool-card" id="aff-figma">
+                        <span class="tc-icon">🖌️</span>
+                        <div class="tc-name">Figma</div>
+                        <div class="tc-desc">Professional design tool, free to start</div>
+                        <span class="tc-cta tc-cta--figma">Open Figma →</span>
+                    </a>
+                    <a href="https://www.adobe.com/creativecloud/plans.html?utm_source=rmvbg&utm_medium=affiliate&utm_campaign=post-result" target="_blank" class="tool-card" id="aff-adobe">
+                        <span class="tc-icon">⚡</span>
+                        <div class="tc-name">Adobe CC</div>
+                        <div class="tc-desc">Photoshop, Illustrator — industry standard tools</div>
+                        <span class="tc-cta tc-cta--adobe">Explore →</span>
+                    </a>
+                </div>
+
+                <!-- Social Share -->
+                <div class="share-row">
+                    <span>🔗 Share & bookmark this tool:</span>
+                    <button class="share-btn share-btn--x" onclick="shareX()" title="Share on X">𝕏 Tweet</button>
+                    <button class="share-btn share-btn--reddit" onclick="shareReddit()" title="Share on Reddit">💬 Reddit</button>
+                    <button class="share-btn" onclick="copyLink()" title="Copy link">📋 Copy Link</button>
+                    <button class="share-btn" onclick="bookmark()" title="Bookmark this page">⭐ Bookmark</button>
+                </div>
+
+                <!-- Email Capture -->
+                <div class="email-capture">
+                    <p><strong>📧 Get more free tools & tips</strong> — one email per month. No spam, unsubscribe anytime.</p>
+                    <form class="email-row" onsubmit="handleEmailCapture(event)">
+                        <input type="email" placeholder="your@email.com" required />
+                        <button type="submit">Subscribe</button>
+                    </form>
+                    <div class="sub-msg"></div>
+                </div>
+            </div>
         </div>
 
         <!-- ===== MIDDLE AD ===== -->
         <div class="ad-slot ad-slot--rectangle" id="ad-middle" style="margin-top:24px;">
-            <!-- AdSense: Rectangle 300x250 -->
-            <span>Sponsor</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4255417677278196"
+                 data-ad-slot="AD_UNIT_ID_MIDDLE"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
     </main>
@@ -694,8 +906,13 @@
     <!-- ===== BOTTOM AD ===== -->
     <div class="container">
         <div class="ad-slot ad-slot--leaderboard" id="ad-bottom">
-            <!-- AdSense: Leaderboard 728x90 -->
-            <span>Sponsor</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4255417677278196"
+                 data-ad-slot="AD_UNIT_ID_BOTTOM"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
     </div>
 
@@ -713,7 +930,7 @@
         <div class="container">
             <p>&copy; 2026 RMVBG &bull; Free online AI background remover &bull; 🔒 100% browser-based, no server upload</p>
             <p style="margin-top:4px;">
-                <a href="/how-to-remove-background">How to Remove Background</a> &bull; <a href="#">Privacy Policy</a> &bull; <a href="#">Contact</a>
+                <a href="/how-to-remove-background">How to Remove Background</a> &bull; <a href="/privacy-policy">Privacy Policy</a> &bull; <a href="/contact">Contact</a>
             </p>
         </div>
     
@@ -871,6 +1088,16 @@ function handleNewsletterSubmit(e) {
                 resultWrap.classList.add('active');
                 uploadZone.querySelector('.main-text').textContent = '✅ Background removed!';
                 hideProgress();
+
+                // 🪴 Plant the seed: track usage & prompt PWA install
+                var useCount = (parseInt(localStorage.getItem('rmvbg_use_count') || '0', 10) || 0) + 1;
+                localStorage.setItem('rmvbg_use_count', useCount);
+                setTimeout(function() { showInstallBanner(); }, 2000);
+
+                // Track successful processing
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'process_success', { 'event_category': 'tool' });
+                }
             } catch (err) {
                 console.error('[RMVBG] ERROR:', err);
                 console.error('[RMVBG] Error name:', err.name);
@@ -932,6 +1159,152 @@ function handleNewsletterSubmit(e) {
         document.addEventListener('drop', (e) => e.preventDefault());
 
         console.log('RMVBG: UI ready. AI model loads on first image.');
+
+        // ===== WHAT'S NEXT: Share, Bookmark, Email Capture =====
+
+        // Track affiliate clicks
+        document.querySelectorAll('.tool-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                var name = this.querySelector('.tc-name');
+                var toolName = name ? name.textContent : 'unknown';
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'affiliate_click', {
+                        'event_category': 'monetization',
+                        'event_label': toolName,
+                        'value': 1
+                    });
+                }
+                console.log('[RMVBG] Affiliate click:', toolName);
+            });
+        });
+
+        function shareX() {
+            var text = encodeURIComponent('Just removed a background for free at rmvbg.online — 100% private, no signup, no upload 🔒✨');
+            var url = encodeURIComponent('https://rmvbg.online');
+            window.open('https://x.com/intent/tweet?text=' + text + '&url=' + url, '_blank', 'width=600,height=400');
+            if (typeof gtag !== 'undefined') gtag('event', 'share', { 'event_category': 'social', 'event_label': 'x' });
+        }
+
+        function shareReddit() {
+            var title = encodeURIComponent('Free background remover — 100% browser-based, no upload to any server');
+            var url = encodeURIComponent('https://rmvbg.online');
+            window.open('https://www.reddit.com/submit?title=' + title + '&url=' + url, '_blank', 'width=800,height=600');
+            if (typeof gtag !== 'undefined') gtag('event', 'share', { 'event_category': 'social', 'event_label': 'reddit' });
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText('https://rmvbg.online').then(function() {
+                alert('✅ Link copied! Share it anywhere.');
+            });
+            if (typeof gtag !== 'undefined') gtag('event', 'share', { 'event_category': 'social', 'event_label': 'copy_link' });
+        }
+
+        function bookmark() {
+            if (window.sidebar && window.sidebar.addPanel) {
+                // Firefox < 23
+                window.sidebar.addPanel('RMVBG - Free Background Remover', 'https://rmvbg.online', '');
+            } else if (window.external && window.external.AddFavorite) {
+                // IE
+                window.external.AddFavorite('https://rmvbg.online', 'RMVBG - Free Background Remover');
+            } else {
+                alert('📌 Press ' + (navigator.platform.toUpperCase().indexOf('MAC') >= 0 ? '⌘+D' : 'Ctrl+D') + ' to bookmark this page!');
+            }
+            if (typeof gtag !== 'undefined') gtag('event', 'bookmark', { 'event_category': 'engagement' });
+        }
+
+        function handleEmailCapture(e) {
+            e.preventDefault();
+            var email = e.target.querySelector('input[type="email"]').value;
+            var msg = e.target.parentElement.querySelector('.sub-msg');
+            // Submit to MailerLite
+            fetch('https://connect.mailerlite.com/subscribe/188692327197312267', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            }).then(function(r) {
+                if (r.ok) {
+                    msg.style.display = 'block';
+                    msg.textContent = '✅ Subscribed! Check your inbox for confirmation.';
+                    msg.style.color = '#16a34a';
+                    e.target.reset();
+                    if (typeof gtag !== 'undefined') gtag('event', 'subscribe', { 'event_category': 'email', 'event_label': 'post_result' });
+                } else {
+                    msg.style.display = 'block';
+                    msg.textContent = 'Something went wrong. Please try again.';
+                    msg.style.color = '#ef4444';
+                }
+            }).catch(function() {
+                msg.style.display = 'block';
+                msg.textContent = 'Something went wrong. Please try again.';
+                msg.style.color = '#ef4444';
+            });
+            return false;
+        }
+
+        // ===== PWA: Service Worker + Install Prompt =====
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(function(reg) {
+                console.log('[RMVBG] SW registered:', reg.scope);
+            }).catch(function(err) {
+                console.log('[RMVBG] SW failed:', err);
+            });
+        }
+
+        var deferredPrompt = null;
+        var installBanner = null;
+
+        // Listen for install prompt
+        window.addEventListener('beforeinstallprompt', function(e) {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('[RMVBG] PWA install is available');
+        });
+
+        // Show install banner after successful image processing
+        function showInstallBanner() {
+            if (installBanner) return; // already showing
+            if (!deferredPrompt) return; // PWA install not available (desktop non-chrome)
+
+            // Show on 1st use. If dismissed, wait until 3rd+ use to remind again.
+            var useCount = parseInt(localStorage.getItem('rmvbg_use_count') || '0', 10);
+            var dismissedCount = parseInt(localStorage.getItem('rmvbg_install_dismissed') || '0', 10);
+            if (dismissedCount > 0 && useCount % 3 !== 0) return;
+
+            installBanner = document.createElement('div');
+            installBanner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#4361ee,#7209b7);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:9999;font-size:0.95rem;flex-wrap:wrap;';
+            installBanner.innerHTML =
+                '<span style="font-weight:600;">✨ Add RMVBG to your home screen — use it anytime, offline-ready!</span>' +
+                '<span style="display:flex;gap:8px;flex-wrap:wrap;">' +
+                '<button id="installBtn" style="background:#fff;color:#4361ee;border:none;padding:10px 20px;border-radius:8px;font-weight:700;font-size:0.9rem;cursor:pointer;">Install</button>' +
+                '<button id="dismissBtn" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.4);padding:8px 16px;border-radius:8px;font-weight:600;font-size:0.85rem;cursor:pointer;">Not now</button>' +
+                '</span>';
+
+            document.body.appendChild(installBanner);
+
+            document.getElementById('installBtn').onclick = function() {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(function(choice) {
+                    console.log('[RMVBG] PWA install:', choice.outcome);
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'pwa_install', { 'event_category': 'engagement', 'event_label': choice.outcome });
+                    }
+                });
+                deferredPrompt = null;
+                installBanner.remove();
+                installBanner = null;
+            };
+
+            document.getElementById('dismissBtn').onclick = function() {
+                installBanner.remove();
+                installBanner = null;
+                // Track dismissals — remind again after 3 more uses
+                var d = parseInt(localStorage.getItem('rmvbg_install_dismissed') || '0', 10) + 1;
+                localStorage.setItem('rmvbg_install_dismissed', d);
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'pwa_dismiss', { 'event_category': 'engagement', 'value': d });
+                }
+            };
+        }
     </script>
 </body>
 </html>

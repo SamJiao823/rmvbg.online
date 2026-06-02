@@ -1,0 +1,8 @@
+# Cloudflare Pages routing
+# /privacy-policy -> /privacy-policy.html
+# /contact -> /contact.html
+# All HTML files served without .html extension by default
+# sitemap and other static files served directly
+/sitemap.xml   /sitemap.xml   200
+/ads.txt       /ads.txt       200
+/robots.txt    /robots.txt    200
