@@ -22,8 +22,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json" />
+    <!-- PWA Manifest (data URI: bypasses CF SPA catch-all) -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlJNVkJHIC0gRnJlZSBCYWNrZ3JvdW5kIFJlbW92ZXIiLAogICJzaG9ydF9uYW1lIjogIlJNVkJHIiwKICAiZGVzY3JpcHRpb24iOiAiUmVtb3ZlIGltYWdlIGJhY2tncm91bmRzIGluc3RhbnRseS4gRnJlZSwgcHJpdmF0ZSwgbm8gc2lnbnVwLiIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAidGhlbWVfY29sb3IiOiAiIzQzNjFlZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZmZmZiIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmclMjB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnJTIwdmlld0JveD0nMCAwIDEwMCAxMDAnJTNFJTNDZGVmcyUzRSUzQ2xpbmVhckdyYWRpZW50JTIwaWQ9J2cnJTIweDE9JzAlMjUnMjB5MT0nMCUyNSclMjB4Mj0nMTAwJTI1JyUyMHkyPScxMDAlMjUnJTNFJTNDc3RvcCUyMG9mZnNldD0nMCUyNSclMjBzdHlsZT0nc3RvcC1jb2xvcjolMjM0MzYxZWUnLyUzRSUzQ3N0b3AlMjBvZmZzZXQ9JzEwMCUyNSclMjBzdHlsZT0nc3RvcC1jb2xvcjolMjM3MjA5YjcnLyUzRSUzQy9saW5lYXJHcmFkaWVudCUzRSUzQy9kZWZzJTNFJTNDcmVjdCUyMHdpZHRoPScxMDAnJTIwaGVpZ2h0PScxMDAnJTIwcng9JzIyJyUyMGZpbGw9J3VybCglMjNnKScvJTNFJTNDdGV4dCUyMHg9JzUwJyUyMHk9JzY4JyUyMHRleHQtYW5jaG9yPSdtaWRkbGUnJTIwZm9udC1zaXplPSc1MiclMjBmaWxsPSd3aGl0ZSclMjBmb250LWZhbWlseT0nc2Fucy1zZXJpZiclM0Xj+8qPCUzQy90ZXh0JTNFJTNDL3N2ZyUzRSIsCiAgICAgICJzaXplcyI6ICJhbnkiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwKICAgICAgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIgogICAgfQogIF0KfQ==" />
     <meta name="theme-color" content="#4361ee" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -590,7 +590,69 @@
         .mt-16 { margin-top: 16px; }
         .mb-16 { margin-bottom: 16px; }
         .hidden { display: none !important; }
+
+        /* ===== SPA Page Routing ===== */
+        .page-tool { display: none; }
+        .page-privacy-body { display: none; }
+        .page-contact-body { display: none; }
+
+        /* Default: / -> show tool */
+        html:not(.page-privacy):not(.page-contact) .page-tool { display: block; }
+        html:not(.page-privacy):not(.page-contact) header { display: block; }
+        html:not(.page-privacy):not(.page-contact) .privacy-badge { display: flex; }
+        html:not(.page-privacy):not(.page-contact) main { display: block; }
+        html:not(.page-privacy):not(.page-contact) .features { display: block; }
+        html:not(.page-privacy):not(.page-contact) .howto { display: block; }
+        html:not(.page-privacy):not(.page-contact) .faq { display: block; }
+        html:not(.page-privacy):not(.page-contact) footer { display: block; }
+        html:not(.page-privacy):not(.page-contact) #recommended-tools { display: block; }
+        html:not(.page-privacy):not(.page-contact) #need-help { display: block; }
+
+        /* /privacy-policy */
+        html.page-privacy .page-privacy-body { display: block; }
+
+        /* /contact */
+        html.page-contact .page-contact-body { display: block; }
+
+        /* Reusable page styles */
+        .static-page { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
+        .static-page h1 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; color: #1a1a2e; }
+        .static-page h2 { font-size: 1.2rem; margin: 28px 0 12px; color: #4361ee; }
+        .static-page p, .static-page li { color: #4b5563; margin-bottom: 12px; }
+        .static-page ul { padding-left: 24px; margin-bottom: 16px; }
+        .static-page a { color: #4361ee; font-weight: 600; }
+        .static-page .last-updated { color: #adb5bd; font-size: 0.85rem; margin-top: 40px; }
+
+        .contact-card { background: #fff; border: 1px solid #e9ecef; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        .contact-card h3 { font-size: 1rem; margin-bottom: 6px; color: #1a1a2e; }
+        .contact-card a { color: #4361ee; font-weight: 600; }
     </style>
+    <script>
+        // ===== SPA Router: serve Privacy / Contact from same HTML =====
+        (function() {
+            var path = window.location.pathname.replace(/\/+$/, '');
+            // Normalize: /privacy-policy.html -> /privacy-policy
+            if (path === '/privacy-policy.html') { window.location.replace('/privacy-policy'); return; }
+            if (path === '/contact.html') { window.location.replace('/contact'); return; }
+
+            if (path === '/privacy-policy') {
+                document.documentElement.className = 'page-privacy';
+                document.title = 'Privacy Policy | RMVBG - Free Background Remover';
+                var meta = document.querySelector('meta[name="description"]');
+                if (meta) meta.content = 'Privacy Policy for RMVBG.online. All images processed locally in your browser. Nothing uploaded, stored, or shared.';
+                var canonical = document.querySelector('link[rel="canonical"]');
+                if (canonical) canonical.href = 'https://rmvbg.online/privacy-policy';
+            } else if (path === '/contact') {
+                document.documentElement.className = 'page-contact';
+                document.title = 'Contact Us | RMVBG - Free Background Remover';
+                var meta = document.querySelector('meta[name="description"]');
+                if (meta) meta.content = 'Contact the RMVBG team. Questions, feedback, bug reports, or business inquiries.';
+                var canonical = document.querySelector('link[rel="canonical"]');
+                if (canonical) canonical.href = 'https://rmvbg.online/contact';
+            }
+            // else: / or anything else -> default tool page
+        })();
+    </script>
 </head>
 <body>
 
@@ -1241,12 +1303,20 @@ function handleNewsletterSubmit(e) {
             return false;
         }
 
-        // ===== PWA: Service Worker + Install Prompt =====
+        // ===== PWA: Service Worker (fails gracefully if sw.js blocked by SPA) =====
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').then(function(reg) {
-                console.log('[RMVBG] SW registered:', reg.scope);
+            // Try direct file; if SPA catch-all blocks it, skip
+            fetch('/sw.js', { method: 'HEAD' }).then(function(r) {
+                var ct = r.headers.get('content-type') || '';
+                if (ct.includes('javascript') || ct.includes('text/plain')) {
+                    return navigator.serviceWorker.register('/sw.js');
+                }
+                console.log('[RMVBG] SW blocked by SPA catch-all, skipping');
+                return null;
+            }).then(function(reg) {
+                if (reg) console.log('[RMVBG] SW registered:', reg.scope);
             }).catch(function(err) {
-                console.log('[RMVBG] SW failed:', err);
+                console.log('[RMVBG] SW unavailable (expected with SPA):', err.message);
             });
         }
 
@@ -1306,5 +1376,84 @@ function handleNewsletterSubmit(e) {
             };
         }
     </script>
+
+    <!-- ===== SPA PAGE: Privacy Policy ===== -->
+    <div class="page-privacy-body" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8f9fa;color:#1a1a2e;line-height:1.7;min-height:100vh;">
+        <div class="static-page">
+            <h1>Privacy Policy</h1>
+            <p><strong>Last updated: June 2, 2026</strong></p>
+
+            <h2>Our Core Promise</h2>
+            <p>RMVBG is built on a simple principle: <strong>your images are yours, and yours alone.</strong> We never see them, never store them, never share them.</p>
+
+            <h2>How Image Processing Works</h2>
+            <p>All background removal happens <strong>entirely in your browser</strong> using client-side AI technology. Your images are never uploaded to any server. The AI model runs locally on your device.</p>
+            <ul>
+                <li>No image data leaves your device</li>
+                <li>No server receives, stores, or processes your images</li>
+                <li>Images are automatically cleared when you close the browser tab</li>
+            </ul>
+
+            <h2>Data We Collect</h2>
+            <p>We use standard analytics services to understand how visitors use our website:</p>
+            <ul>
+                <li><strong>Google Analytics (GA4)</strong>: Collects anonymized page view data. No personally identifiable information.</li>
+                <li><strong>Microsoft Clarity</strong>: Collects anonymized session recordings to improve UX. No personal data.</li>
+            </ul>
+
+            <h2>Cookies</h2>
+            <ul>
+                <li>Google Analytics and Microsoft Clarity use cookies for session tracking</li>
+                <li>Google AdSense uses cookies to serve relevant ads</li>
+                <li>No login cookies — we have no user accounts</li>
+                <li>You can disable cookies in your browser settings</li>
+            </ul>
+
+            <h2>Third-Party Services</h2>
+            <ul>
+                <li><strong>Google AdSense</strong>: Displays advertisements. Google may use cookies. <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">Learn more</a>.</li>
+                <li><strong>jsDelivr CDN</strong>: The AI model loads from jsDelivr's CDN. They do not receive your images.</li>
+                <li><strong>MailerLite</strong>: Used for optional newsletter subscriptions. Only your email is stored if you subscribe.</li>
+            </ul>
+
+            <h2>Children's Privacy</h2>
+            <p>Our website is not directed to children under 13. We do not knowingly collect data from children.</p>
+
+            <h2>Changes to This Policy</h2>
+            <p>We may update this policy. Changes will be posted on this page.</p>
+
+            <h2>Contact</h2>
+            <p>Questions about this policy? <a href="/contact">Contact us here</a>.</p>
+
+            <p class="last-updated">← <a href="/">Back to RMVBG Background Remover</a></p>
+        </div>
+    </div>
+
+    <!-- ===== SPA PAGE: Contact ===== -->
+    <div class="page-contact-body" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8f9fa;color:#1a1a2e;line-height:1.7;min-height:100vh;">
+        <div class="static-page">
+            <h1>Contact Us</h1>
+            <p>Have a question, feedback, or bug report? We'd love to hear from you.</p>
+
+            <div class="contact-card">
+                <h3>📧 Email</h3>
+                <p style="color:#4b5563;margin:0;">For general inquiries, partnerships, or support:</p>
+                <a href="mailto:hello@rmvbg.online">hello@rmvbg.online</a>
+            </div>
+            <div class="contact-card">
+                <h3>🐛 Bug Report</h3>
+                <p style="color:#4b5563;margin:0;">Found a problem? Let us know and we'll fix it ASAP.</p>
+                <a href="mailto:hello@rmvbg.online?subject=Bug%20Report">Report a Bug →</a>
+            </div>
+            <div class="contact-card">
+                <h3>💼 Business / Partnership</h3>
+                <p style="color:#4b5563;margin:0;">Interested in advertising, API access, or custom solutions?</p>
+                <a href="mailto:hello@rmvbg.online?subject=Business%20Inquiry">Get in Touch →</a>
+            </div>
+
+            <p class="last-updated">← <a href="/">Back to RMVBG Background Remover</a></p>
+        </div>
+    </div>
+
 </body>
 </html>
